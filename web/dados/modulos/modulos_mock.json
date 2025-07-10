@@ -1,0 +1,26 @@
+[
+  {
+    "id": "MOD-001",
+    "medicamento": "Losartana",
+    "dose": "50mg",
+    "estoque": "20/30",
+    "paciente": "Ana *****",
+    "status": "Ativo"
+  },
+  {
+    "id": "MOD-002",
+    "medicamento": "Atenolol",
+    "dose": "25mg",
+    "estoque": "15/30",
+    "paciente": "Carlos *****",
+    "status": "Ativo"
+  },
+  {
+    "id": "MOD-003",
+    "medicamento": "Metformina",
+    "dose": "850mg",
+    "estoque": "28/30",
+    "paciente": "João *****",
+    "status": "Ativo"
+  }
+]
