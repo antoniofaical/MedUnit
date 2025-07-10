@@ -1,7 +1,7 @@
 <p align="center">
-  <img src="/web/assets/img/logo_medunit.png" alt="Logo MedUnit" height="120"/>
+  <img src="/web/assets/img/logo_medunit.svg" alt="Logo MedUnit" height="120"/>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="/web/assets/img/logo_biochallenge.svg" alt="Logo Biochallenge" height="120"/>
+  <img src="/web/assets/img/logo_biochallenge.png" alt="Logo Biochallenge" height="120"/>
 </p>
 
 # MedUnit
