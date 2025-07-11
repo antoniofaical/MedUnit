@@ -1,0 +1,162 @@
+<!-- === MODAL CONECTAR === -->
+<div class="modal-overlay" id="modal-conectar">
+  <div class="modal-content">
+    <img src="assets/img/logo_medunit.svg" alt="Logo MedUnit" class="logo" style="height: 60px; margin-bottom: 20px;" />
+
+    <div style="margin: 24px 0;">
+      <img src="assets/img/gray_cube.svg" alt="Cubo de status" id="cube-status" style="height: 100px;" />
+    </div>
+
+    <h2 id="conexao-status">Sincronizando com o módulo</h2>
+    <h3 id="modulo-conectar-id" style="font-weight: 600; font-size: 1.4rem; color: #2aa198;">MOD-???</h3>
+    <p id="conexao-msg">Aguarde...</p>
+
+    <div class="modal-actions" style="margin-top: 32px;">
+      <button class="button-outline" id="cancelar-conexao">Cancelar</button>
+      <button class="button-primary" id="tentar-novamente">Tentar Novamente</button>
+    </div>
+  </div>
+</div>
+
+<!-- === MODAL CONECTADO === -->
+<div class="modal-overlay" id="modal-conectado">
+  <div class="modal-content">
+    <img src="assets/img/logo_medunit.svg" alt="Logo MedUnit" class="logo" style="height: 60px; margin-bottom: 20px;" />
+
+    <div style="margin: 24px 0;">
+      <img src="assets/img/green_cube.svg" alt="Cubo conectado" style="height: 100px;" />
+    </div>
+
+    <h2>Conexão estabelecida</h2>
+    <h3 id="modulo-conectado-id" style="font-weight: 600; font-size: 1.4rem; color: #2aa198;">MOD-???</h3>
+
+    <div class="modal-actions" style="margin-top: 32px;">
+      <button class="button-primary" id="fechar-conectado">Próximo</button>
+    </div>
+  </div>
+</div>
+
+<!-- === MODAL FAIL === -->
+<div class="modal-overlay" id="modal-fail">
+  <div class="modal-content">
+    <img src="assets/img/logo_medunit.svg" alt="Logo MedUnit" class="logo" style="height: 60px; margin-bottom: 20px;" />
+
+    <div style="margin: 24px 0;">
+      <img src="assets/img/red_cube.svg" alt="Cubo falha" style="height: 100px;" />
+    </div>
+
+    <h2>Conexão falhou</h2>
+    <h3 id="modulo-fail-id" style="font-weight: 600; font-size: 1.4rem; color: #d32f2f;">MOD-???</h3>
+
+    <div class="modal-actions" style="margin-top: 32px;">
+      <button class="button-outline" id="cancelar-fail">Cancelar</button>
+      <button class="button-primary" id="tentar-fail">Tentar Novamente</button>
+    </div>
+  </div>
+</div>
+
+<!-- === MODAL EDITAR === -->
+<div class="modal-overlay" id="modal-editar">
+  <div class="modal-content">
+    <h2 class="modal-title">
+      Editar Módulo
+      <span id="modulo-id" class="modulo-id">MOD-XXX</span>
+    </h2>
+
+    <form id="form-editar-modulo">
+      <!-- Informações do Paciente -->
+      <fieldset>
+        <legend>Informações do Paciente</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nome-paciente">Nome do Paciente</label>
+            <input type="text" id="nome-paciente" name="nome-paciente" />
+          </div>
+          <div class="form-group">
+            <label for="cpf-paciente">CPF do Paciente</label>
+            <input type="text" id="cpf-paciente" name="cpf-paciente" />
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Informações do Medicamento -->
+      <fieldset>
+        <legend>Informações do Medicamento</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="medicamento">Medicamento</label>
+            <input type="text" id="medicamento" name="medicamento" />
+          </div>
+          <div class="form-group">
+            <label for="dosagem-prescrita">Dosagem Prescrita</label>
+            <input type="text" id="dosagem-prescrita" name="dosagem-prescrita" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="dosagem-medicamento">Dosagem do Medicamento</label>
+            <input type="text" id="dosagem-medicamento" name="dosagem-medicamento" />
+          </div>
+          <div class="form-group">
+            <label for="formato">Formato</label>
+            <input type="text" id="formato" name="formato" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="quantidade-por-dose">Quantidade por Dose</label>
+            <input type="text" id="quantidade-por-dose" name="quantidade-por-dose" />
+          </div>
+          <div class="form-group">
+            <label for="quantidade-estoque">Quantidade Atual em Estoque</label>
+            <input type="text" id="quantidade-estoque" name="quantidade-estoque" />
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Posologia -->
+      <fieldset>
+        <legend>Posologia</legend>
+        <div class="posologia-header">
+          <span class="posologia-col">Horário</span>
+          <span class="posologia-col">Dom</span>
+          <span class="posologia-col">Seg</span>
+          <span class="posologia-col">Ter</span>
+          <span class="posologia-col">Qua</span>
+          <span class="posologia-col">Qui</span>
+          <span class="posologia-col">Sex</span>
+          <span class="posologia-col">Sáb</span>
+        </div>
+
+        <div id="horarios-lista" class="posologia-lista"></div>
+
+        <button type="button" id="btn-adicionar-horario" class="link-button">+ Adicionar Horário</button>
+      </fieldset>
+
+      <!-- Ações -->
+      <div class="modal-actions">
+        <button type="button" class="button-outline" id="cancelar-edicao">Cancelar</button>
+        <button type="submit" class="button-primary">Salvar Alterações</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- === MODAL LIMPAR === -->
+<div class="modal-overlay" id="modal-limpar">
+  <div class="modal-content">
+    <h2>Limpar Módulo</h2>
+    <p>
+      <strong>Atenção!</strong>
+      Tem certeza que deseja limpar <strong>todos</strong> os dados do módulo
+      <strong id="limpar-modulo-id">MOD-???</strong>?
+    </p>
+
+    <div class="modal-actions">
+      <button id="confirmar-limpeza" class="button button-danger-outline">LIMPAR MÓDULO</button>
+      <button id="cancelar-limpeza" class="button button-outline">Cancelar</button>
+    </div>
+  </div>
+</div>

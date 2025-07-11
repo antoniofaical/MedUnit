@@ -1,26 +1,77 @@
 [
   {
     "id": "MOD-001",
-    "medicamento": "Losartana",
-    "dose": "50mg",
-    "estoque": "20/30",
-    "paciente": "Ana *****",
+    "paciente": {
+      "nome": "Ana Maria",
+      "cpf": "123.456.789-00"
+    },
+    "medicamento": {
+      "nome": "Losartana",
+      "dosagem_prescrita": "50mg",
+      "formato": "comprimido",
+      "quantidade_por_dose": 1,
+      "estoque": {
+        "atual": 20,
+        "maximo": 30
+      }
+    },
+    "horarios": [
+      {
+        "hora": "08:00",
+        "dias": ["Seg", "Qua", "Sex"]
+      },
+      {
+        "hora": "20:00",
+        "dias": ["Seg", "Qua", "Sex"]
+      }
+    ],
     "status": "Ativo"
   },
   {
     "id": "MOD-002",
-    "medicamento": "Atenolol",
-    "dose": "25mg",
-    "estoque": "15/30",
-    "paciente": "Carlos *****",
+    "paciente": {
+      "nome": "Carlos Silva",
+      "cpf": "987.654.321-00"
+    },
+    "medicamento": {
+      "nome": "Atenolol",
+      "dosagem_prescrita": "25mg",
+      "formato": "comprimido",
+      "quantidade_por_dose": 1,
+      "estoque": {
+        "atual": 15,
+        "maximo": 30
+      }
+    },
+    "horarios": [
+      {
+        "hora": "08:00",
+        "dias": ["Seg"]
+      },
+      {
+        "hora": "20:00",
+        "dias": ["Seg"]
+      }
+    ],
     "status": "Ativo"
   },
   {
     "id": "MOD-003",
-    "medicamento": "Metformina",
-    "dose": "850mg",
-    "estoque": "28/30",
-    "paciente": "João *****",
+    "paciente": {
+      "nome": "João Souza",
+      "cpf": "555.333.111-99"
+    },
+    "medicamento": {
+      "nome": "Metformina",
+      "dosagem_prescrita": "850mg",
+      "formato": "comprimido",
+      "quantidade_por_dose": 1,
+      "estoque": {
+        "atual": 28,
+        "maximo": 30
+      }
+    },
+    "horarios": [],
     "status": "Ativo"
   }
 ]

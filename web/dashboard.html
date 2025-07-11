@@ -2,64 +2,81 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard | MedUnit</title>
-    <link rel="stylesheet" href="styles/globals.css" />
-    <link rel="stylesheet" href="styles/dashboard.css" />
-    <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
-    <!-- Fonte Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | MedUnit</title>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="styles/globals.css" />
+  <link rel="stylesheet" href="styles/dashboard.css" />
+  <link rel="stylesheet" href="styles/modais.css" />
+
+  <!-- Ícone -->
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon" />
+
+  <!-- Fonte Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
 </head>
 
 <body>
-    <header class="dashboard-header">
-        <div class="logo-box">
-            <img src="assets/img/logo_medunit_alt.svg" alt="Logo MedUnit" class="logo" />
-        </div>
-        <div class="client-box">
-            <span class="client-label">Cliente:</span>
-            <span class="client-name">Farmácia 1</span>
-        </div>
-        <div class="actions-box">
-            <button class="button button-outline logout-btn">
-                Logout <img src="assets/icons/logout.svg" alt="Sair" class="icon" />
-            </button>
-        </div>
-    </header>
 
-    <main class="dashboard-main">
-        <div class="dashboard-title-row">
-            <h2>Módulos ativos</h2>
-            <a href="#" class="connect-link">
-                Conectar Módulo <img src="assets/icons/bluetooth.svg" alt="Bluetooth" class="icon" />
-            </a>
-        </div>
+  <!-- ===== HEADER ===== -->
+  <header class="dashboard-header">
+    <div class="logo-box">
+      <img src="assets/img/logo_medunit_alt.svg" alt="Logo MedUnit" class="logo" />
+    </div>
 
-        <div class="dashboard-table">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID do módulo</th>
-                        <th>Medicamento</th>
-                        <th>Dose</th>
-                        <th>Estoque</th>
-                        <th>Paciente</th>
-                        <th>Status</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="modulos-tbody">
-                    <!-- Preenchido dinamicamente via JS -->
-                </tbody>
-            </table>
-        </div>
-    </main>
+    <div class="client-box">
+      <span class="client-label">Cliente:</span>
+      <span class="client-name">Farmácia 1</span>
+    </div>
 
-    <script src="scripts/dashboard.js"></script>
-    
+    <div class="actions-box">
+      <button class="button logout-btn">
+        Logout
+        <img src="assets/icons/logout.svg" alt="Sair" class="icon" />
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="dashboard-main">
+    <div class="dashboard-title-row">
+      <h2>Módulos ativos</h2>
+      <a href="#" class="connect-link" id="btn-conectar-modulo">
+        Conectar Módulo
+        <img src="assets/icons/bluetooth.svg" alt="Bluetooth" class="icon" />
+      </a>
+    </div>
+
+    <div class="dashboard-table">
+      <table>
+        <thead>
+          <tr>
+            <th>ID do módulo</th>
+            <th>Medicamento</th>
+            <th>Dose</th>
+            <th>Estoque</th>
+            <th>Paciente</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="modulos-tbody">
+          <!-- Preenchido dinamicamente via JS -->
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- ===== MODAIS (inseridos via JS) ===== -->
+  <div id="modais-container"></div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script src="scripts/dashboard.js"></script>
+  <script src="scripts/modais.js"></script>
 
 </body>
 
