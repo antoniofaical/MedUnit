@@ -55,12 +55,14 @@ def agora_formatado() -> str:
     return formatar_data(datetime.now())
 
 
+# Valida módulo com todas as chaves mínimas esperadas. Útil para prevenir salvamento corrompido
 def validar_modulo_json(dados: dict) -> bool:
     chaves_obrigatorias = ["id", "paciente", "medicamento", "horarios"]
 
     return all(chave in dados for chave in chaves_obrigatorias)
 
 
+# Gera módulo com todos os campos esperadas. Útil para limpar/registrar módulo
 def gerar_modulo_vazio(mod_id: str) -> dict:
 
     return {
