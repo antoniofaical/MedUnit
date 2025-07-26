@@ -3,6 +3,18 @@ import os
 from datetime import datetime
 from typing import Any
 import re
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
+# Define a variavel config_path globalmente
+def config_path() -> str:
+    return os.path.join("dados", "config.json")
+
+
+# Define a variavel modulos_path globalmente
+def modulos_path() -> str:
+    return os.path.join("dados", "modulos")
 
 
 # Limpeza de string para evitar scripts, comandos ou caracteres perigosos.
@@ -40,9 +52,11 @@ def ler_json(caminho: str) -> Any:
 
 
 # Salva os dados fornecidos em formato JSON no caminho especificado.
-def salvar_json(caminho: str, dados: Any) -> None:
+
+def salvar_json(caminho: str, dados: dict) -> None:
     with open(caminho, "w", encoding="utf-8") as f:
         json.dump(dados, f, indent=4, ensure_ascii=False)
+    logging.info(f"[SALVO] Arquivo JSON salvo com sucesso: {caminho}")
 
 
 # Formata um objeto datetime para string legível. Formato padrão: DD/MM/AAAA HH:MM
@@ -57,9 +71,11 @@ def agora_formatado() -> str:
 
 # Valida módulo com todas as chaves mínimas esperadas. Útil para prevenir salvamento corrompido
 def validar_modulo_json(dados: dict) -> bool:
-    chaves_obrigatorias = ["id", "paciente", "medicamento", "horarios"]
-
-    return all(chave in dados for chave in chaves_obrigatorias)
+    obrigatorios = ["id", "paciente", "medicamento", "horarios"]
+    ausentes = [k for k in obrigatorios if k not in dados]
+    if ausentes:
+        raise ValueError(f"Campos obrigatórios ausentes no módulo: {ausentes}")
+    return True
 
 
 # Gera módulo com todos os campos esperadas. Útil para limpar/registrar módulo
@@ -91,3 +107,4 @@ def estimar_estoque(dados_modulo: dict) -> int:
     posologia_diaria = len(dados_modulo.get("horarios", []))
     quantidade_usada = dias_passados * posologia_diaria
     return max(0, dados_modulo.get("estoque_atual", 0) - quantidade_usada)
+

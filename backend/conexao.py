@@ -5,6 +5,7 @@ from bleak import BleakClient, BleakScanner
 # UUID da characteristic BLE que troca dados com o módulo
 CHAR_JSON_UUID = "0000a001-0000-1000-8000-00805f9b34fb"
 
+
 # Scan e retorna lista de dispositivos BLE próximos (filtra os MedUnit)
 async def listar_dispositivos_BT():
     dispositivos = await BleakScanner.discover(timeout=5.0)
@@ -37,16 +38,24 @@ async def enviar_json_para_modulo(mac_address: str, json_dict: dict) -> str:
 
 
 # Envia um comando genérico e lê a resposta, se necessário
-async def enviar_comando(mac_address: str, comando: str) -> str:
-    try:
-        async with BleakClient(mac_address, timeout=10.0) as client:
-            await client.write_gatt_char(CHAR_JSON_UUID, comando.encode())
+async def enviar_comando(mac_address: str, comando: str, tentativas: int = 3) -> str:
+    for tentativa in range(1, tentativas + 1):
+        try:
+            async with BleakClient(mac_address, timeout=10.0) as client:
+                await client.write_gatt_char(CHAR_JSON_UUID, comando.encode())
 
-            # Sempre espera uma resposta curta (ACK ou JSON)
-            resposta = await client.read_gatt_char(CHAR_JSON_UUID)
-            return resposta.decode()
+                resposta = await client.read_gatt_char(CHAR_JSON_UUID)
+                return json.dumps(
+                    {
+                        "tipo": "ack" if not comando.startswith("GET_") else "json",
+                        "conteudo": resposta.decode(),
+                    }
+                )
 
-    except Exception as e:
-        print(f"[ERRO] Falha ao enviar comando '{comando}' para {mac_address}: {e}")
-        return "ERRO"
+        except Exception as e:
+            print(
+                f"[TENTATIVA {tentativa}] Falha ao enviar comando '{comando}' para {mac_address}: {e}"
+            )
+            await asyncio.sleep(1)
 
+    return json.dumps({"erro": str(e)})
