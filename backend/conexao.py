@@ -16,6 +16,16 @@ async def listar_dispositivos_BT():
     return encontrados
 
 
+# Tenta se conectar ao primeiro dispositivo MedUnit disponível. Retorna o MAC se bem-sucedido, ou None.
+async def conectar_automaticamente() -> str | None:
+    dispositivos = await listar_dispositivos_BT()
+    for d in dispositivos:
+        if "MedUnit" in (d["nome"] or ""):
+            if await conectar_modulo(d["endereco"]):
+                return d["endereco"]
+    return None
+
+
 # Testa conexão com o módulo a partir do MAC address
 async def conectar_modulo(mac_address: str) -> bool:
     try:
