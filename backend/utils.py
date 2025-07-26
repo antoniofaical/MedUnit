@@ -7,6 +7,7 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
+
 # Define a variavel config_path globalmente
 def config_path() -> str:
     return os.path.join("dados", "config.json")
@@ -52,6 +53,7 @@ def ler_json(caminho: str) -> Any:
 
 
 # Salva os dados fornecidos em formato JSON no caminho especificado.
+
 
 def salvar_json(caminho: str, dados: dict) -> None:
     with open(caminho, "w", encoding="utf-8") as f:
@@ -107,4 +109,3 @@ def estimar_estoque(dados_modulo: dict) -> int:
     posologia_diaria = len(dados_modulo.get("horarios", []))
     quantidade_usada = dias_passados * posologia_diaria
     return max(0, dados_modulo.get("estoque_atual", 0) - quantidade_usada)
-

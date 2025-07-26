@@ -88,9 +88,12 @@ def scan_dispositivos():
 
 
 @eel.expose
+def conectar_automaticamente():
+    return eel.loop.run_until_complete(conectar_automaticamente())
+
+@eel.expose
 def conectar_a_modulo(mac):
     return eel.loop.run_until_complete(conectar_modulo(mac))
-
 
 @eel.expose
 def obter_json_modulo(mac):
