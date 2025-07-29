@@ -16,16 +16,6 @@ async def listar_dispositivos_BT():
     return encontrados
 
 
-# Tenta se conectar ao primeiro dispositivo MedUnit disponível. Retorna o MAC se bem-sucedido, ou None.
-async def conectar_automaticamente() -> str | None:
-    dispositivos = await listar_dispositivos_BT()
-    for d in dispositivos:
-        if "MedUnit" in (d["nome"] or ""):
-            if await conectar_modulo(d["endereco"]):
-                return d["endereco"]
-    return None
-
-
 # Testa conexão com o módulo a partir do MAC address
 async def conectar_modulo(mac_address: str) -> bool:
     try:
@@ -34,17 +24,16 @@ async def conectar_modulo(mac_address: str) -> bool:
     except Exception as e:
         print(f"[ERRO] Conexão falhou com {mac_address}: {e}")
         return False
+    
 
-
-# Lê o JSON atual do módulo via comando GET_JSON
-async def ler_json_do_modulo(mac_address: str) -> str:
-    return await enviar_comando(mac_address, "GET_JSON")
-
-
-# Envia um JSON atualizado para o módulo com comando SET_JSON
-async def enviar_json_para_modulo(mac_address: str, json_dict: dict) -> str:
-    comando = "SET_JSON:" + json.dumps(json_dict)
-    return await enviar_comando(mac_address, comando)
+# Tenta se conectar ao primeiro dispositivo MedUnit disponível. Retorna o MAC se bem-sucedido, ou None.
+async def conectar_automaticamente() -> str | None:
+    dispositivos = await listar_dispositivos_BT()
+    for d in dispositivos:
+        if "MedUnit" in (d["nome"] or ""):
+            if await conectar_modulo(d["endereco"]):
+                return d["endereco"]
+    return None
 
 
 # Envia um comando genérico e lê a resposta, se necessário
@@ -69,3 +58,14 @@ async def enviar_comando(mac_address: str, comando: str, tentativas: int = 3) ->
             await asyncio.sleep(1)
 
     return json.dumps({"erro": str(e)})
+
+
+# Lê o JSON atual do módulo via comando GET_JSON
+async def ler_json_do_modulo(mac_address: str) -> str:
+    return await enviar_comando(mac_address, "GET_JSON")
+
+
+# Envia um JSON atualizado para o módulo com comando SET_JSON
+async def enviar_json_para_modulo(mac_address: str, json_dict: dict) -> str:
+    comando = "SET_JSON:" + json.dumps(json_dict)
+    return await enviar_comando(mac_address, comando)

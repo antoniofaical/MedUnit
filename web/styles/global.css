@@ -1,0 +1,188 @@
+
+/* ========== RESET ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f4f6f8;
+  color: #212121;
+  height: 100%;
+  width: 100%;
+}
+
+/* ========== TYPOGRAPHY ========== */
+h1 {
+  font-size: 39px;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 31px;
+  font-weight: normal;
+}
+
+h3 {
+  font-size: 25px;
+  font-weight: normal;
+}
+
+.body {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.subtitle {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+/* ========== COLORS ========== */
+:root {
+  --primary: #ffffff;
+  --secondary: #008080;
+  --tertiary: #4DB6AC;
+  --quartiary: #212121;
+  --quinquenary: #757575;
+}
+
+/* ========== BUTTONS ========== */
+button {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background-color 0.2s ease;
+}
+
+.btn-secondary {
+  background-color: var(--secondary);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #006666;
+}
+
+.btn-tertiary {
+  background-color: var(--tertiary);
+  color: white;
+}
+
+.btn-tertiary:hover {
+  background-color: #3CAAA0;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--quartiary);
+  border: 2px solid var(--quartiary);
+}
+
+.btn-outline:hover {
+  background-color: #ffe5e5;
+}
+
+.btn-danger {
+  background-color: white;
+  color: red;
+  border: 2px solid red;
+}
+
+.btn-danger:hover {
+  background-color: #ffe5e5;
+}
+
+/* ========== INPUTS ========== */
+input, select, textarea {
+  font-family: inherit;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  width: 100%;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--secondary);
+  outline: none;
+}
+
+/* ========== TABLE ========== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  font-size: 14px;
+}
+
+thead {
+  background-color: #e9ecef;
+}
+
+th, td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+tr:hover {
+  background-color: #f1f3f5;
+}
+
+/* ========== MODAL ========== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content h2 {
+  margin-bottom: 16px;
+}
+
+/* ========== UTILITY CLASSES ========== */
+.flex {
+  display: flex;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
