@@ -1,0 +1,48 @@
+.cadastro-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f6f8;
+}
+
+.card {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  height: 80px;
+  margin: 0 auto 16px;
+  display: block;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 31px;
+}
+
+form label {
+  font-size: 16px;
+  margin-top: 12px;
+  display: block;
+  color: var(--quartiary);
+}
+
+form input,
+form select {
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+.erro {
+  font-size: 14px;
+  color: red;
+  margin-top: 12px;
+  text-align: center;
+}

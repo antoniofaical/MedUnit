@@ -1,7 +1,7 @@
 
 import eel
 import os
-from backend.auth import verificar_login, criar_config_inicial, carregar_config
+from backend.auth import verificar_login, criar_config, carregar_config
 from backend.modulos import (
     listar_modulos,
     carregar_modulo_validado,
@@ -32,6 +32,10 @@ def login(cnpj, senha):
 def carregar_configuracoes():
     return carregar_config()
 
+
+@eel.expose
+def cadastrar_farmacia(cnpj, nome, senha, plano):
+    criar_config(cnpj, nome, senha, plano) 
 
 #~#~#~#~#~#~#~#~#~#~#~#~#~#~#~# MÓDULOS #~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
 

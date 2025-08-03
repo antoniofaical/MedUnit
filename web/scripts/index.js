@@ -9,4 +9,4 @@ async function verificarConfiguracoes() {
     }
 }
 
-verificarConfiguracoes();
+setTimeout(verificarConfiguracoes, 1000);
