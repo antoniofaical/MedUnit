@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | MedUnit</title>
+  <link rel="stylesheet" href="styles/global.css" />
+  <link rel="stylesheet" href="styles/dashboard.css" />
+</head>
+<body>
+  <header class="dashboard-header">
+    <div class="logo-container">
+      <img src="assets/Logo_medunit_unitbr.svg" alt="Logo MedUnit" />
+    </div>
+    <div class="farmacia-nome">
+      <span class="subtitle">Cliente:</span> <strong id="nome-farmacia">...</strong>
+    </div>
+    <button class="btn-outline" id="logout-btn">Logout</button>
+  </header>
+
+  <main class="container">
+    <div class="linha-cabecalho">
+        <h2>Módulos registrados</h2>
+        <div class="acoes-modulo" id="bloco-conexao">
+            <button class="btn-outline" id="btn-conectar">
+                Conectar Módulo
+                <img class="icone-bluetooth" src="assets/bluetooth.svg" alt="Icone BT">
+            </button>
+        </div>
+    </div>
+
+    <div class="acoes-modulo hidden" id="bloco-conectado">
+      <span class="modulo-label" id="modulo-conectado-label">MOD-??? CONECTADO</span>
+      <button class="btn-outline" id="btn-acessar">Acessar Módulo</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID do módulo</th>
+          <th>Medicamento</th>
+          <th>Dose</th>
+          <th>Estoque</th>
+          <th>Paciente</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="modulos-tbody">
+        <!-- Populado via JS -->
+      </tbody>
+    </table>
+  </main>
+
+  <script src="/eel.js"></script>
+  <script src="scripts/utils.js"></script>
+  <script src="scripts/dashboard.js"></script>
+</body>
+</html>
