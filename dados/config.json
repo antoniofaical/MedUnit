@@ -1,6 +1,28 @@
 {
-    "cnpj": "1234567800123",
-    "nome_farmacia": "Farmacia 1",
-    "senha": "$2b$12$j1cSkONW8QKOjx/VXVo92OhWcoowLvyCdj5m2vbWHPn/5ij2oUpxy",
-    "plano": "empresarial"
+  "nome_farmacia": "Farmacia 1",
+  "cnpj": "12.345.678/0012-3",
+  "senha_hash": "$2b$12$uaxMfYHqBYQoCJV6na8H/uza6gmUcCgICrr1zJ0SO9yaX/ZO0LvBm",
+  "plano": "EMPRESARIAL",
+  "modulos": [
+    "MOD-001",
+    "MOD-002",
+    "MOD-003",
+    "MOD-004",
+    "MOD-005",
+    "MOD-006",
+    "MOD-007",
+    "MOD-008",
+    "MOD-009",
+    "MOD-010",
+    "MOD-011",
+    "MOD-012",
+    "MOD-013",
+    "MOD-014",
+    "MOD-015",
+    "MOD-016",
+    "MOD-017",
+    "MOD-018",
+    "MOD-019",
+    "MOD-020"
+  ]
 }

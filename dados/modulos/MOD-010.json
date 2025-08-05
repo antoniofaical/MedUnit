@@ -1,0 +1,14 @@
+{
+  "id": "MOD-010",
+  "paciente": "Eduardo Gomes",
+  "cpf": "888.777.666-55",
+  "medicamento": "Omeprazol",
+  "dosagem": "40mg",
+  "formato": "Comprimido",
+  "quantidade_por_dose": 1,
+  "estoque_atual": 17,
+  "horarios": [
+    "09:00"
+  ],
+  "ultima_atualizacao": "2025-08-05T02:29"
+}

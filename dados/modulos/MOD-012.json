@@ -1,0 +1,15 @@
+{
+  "id": "MOD-012",
+  "paciente": "Carlos Lima",
+  "cpf": "321.654.987-00",
+  "medicamento": "Metformina",
+  "dosagem": "850mg",
+  "formato": "Comprimido",
+  "quantidade_por_dose": 3,
+  "estoque_atual": 15,
+  "horarios": [
+    "07:00",
+    "19:00"
+  ],
+  "ultima_atualizacao": "2025-08-05T02:29"
+}

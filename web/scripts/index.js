@@ -1,12 +1,11 @@
-async function verificarConfiguracoes() {
-    try {
-    const config = await eel.carregar_configuracoes()();
-    // Se carregar com sucesso, redireciona para login
-    window.location.href = "login.html";
-    } catch (e) {
-    // Se der erro (ex: FileNotFoundError), redireciona para cadastro
-    window.location.href = "cadastro.html";
-    }
-}
-
-setTimeout(verificarConfiguracoes, 1000);
+document.addEventListener("DOMContentLoaded", () => {
+  eel.verificar_config()(function (existe) {
+    setTimeout(() => {
+      if (existe === true) {
+        window.location.href = "login.html";
+      } else {
+        window.location.href = "cadastro.html";
+      }
+    }, 500); 
+  });
+});

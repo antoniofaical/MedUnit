@@ -1,0 +1,15 @@
+{
+  "id": "MOD-006",
+  "paciente": "Lucas Alves",
+  "cpf": "444.333.222-11",
+  "medicamento": "Losartana",
+  "dosagem": "50mg",
+  "formato": "Comprimido",
+  "quantidade_por_dose": 3,
+  "estoque_atual": 15,
+  "horarios": [
+    "08:00",
+    "20:00"
+  ],
+  "ultima_atualizacao": "2025-08-05T02:29"
+}

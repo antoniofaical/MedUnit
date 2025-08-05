@@ -1,87 +1,233 @@
-
-let moduloConectadoId = null;
-let moduloConectadoMAC = null;
+document.getElementById("logout-btn")?.addEventListener("click", () => {
+    localStorage.clear();
+    window.location.href = "login.html";
+});
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const config = await carregarConfiguracoes();
-  document.getElementById("nome-farmacia").textContent = config.nome_farmacia;
+    const nome = localStorage.getItem("farmacia_nome");
+    document.getElementById("nome-farmacia").textContent = nome || "...";
 
-  await carregarModulos();
-
-  document.getElementById("logout-btn").addEventListener("click", () => {
-    window.location.href = "index.html";
-  });
-
-  document.getElementById("btn-conectar").addEventListener("click", async () => {
-    try {
-      const mac = await conectarAutomaticamente();
-      if (!mac) throw new Error("Nenhum módulo MedUnit encontrado.");
-
-      const json = await obterJsonDoModulo(mac);
-      if (!json || !json.id) throw new Error("Não foi possível ler o módulo.");
-
-      moduloConectadoId = json.id;
-      moduloConectadoMAC = mac;
-
-      document.getElementById("modulo-conectado-label").textContent = `${moduloConectadoId} CONECTADO`;
-      document.getElementById("bloco-conexao").classList.add("hidden");
-      document.getElementById("bloco-conectado").classList.remove("hidden");
-
-      localStorage.setItem("moduloConectadoId", moduloConectadoId);
-      localStorage.setItem("moduloConectadoMAC", moduloConectadoMAC);
-    } catch (err) {
-      console.error("Erro ao conectar módulo:", err.message);
-      alert("Erro ao conectar módulo.");
-    }
-  });
-
-  document.getElementById("btn-acessar").addEventListener("click", async () => {
-    try {
-      if (!moduloConectadoMAC) throw new Error("MAC não encontrado.");
-      abrirModal("modal-sincronizando");
-      atualizarIDModal(moduloConectadoId);
-
-      const dados = await eel.realizar_handshake(moduloConectadoMAC)();
-      if (dados.erro) throw new Error(dados.erro);
-
-      await new Promise(r => setTimeout(r, 500));
-      abrirModal("modal-conectado");
-    } catch (err) {
-      console.error(err);
-      abrirModal("modal-falhou");
-    }
-  });
+    await carregarModulos();
 });
 
 async function carregarModulos() {
-  const lista = await obterListaModulos();
-  const tbody = document.getElementById("modulos-tbody");
+    const tabela = document.getElementById("tabela-modulos").querySelector("tbody");
+    tabela.innerHTML = "";
 
-  for (const modId of lista) {
-    const dados = await carregarModulo(modId);
+    const modulos = await eel.listar_modulos()();
 
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
+    for (const mod_id of modulos) {
+        const dados = await eel.carregar_modulo_backend(mod_id)();
+        if (dados.erro) continue;
+
+        const linha = document.createElement("tr");
+
+        linha.innerHTML = `
       <td>${dados.id}</td>
       <td>${dados.medicamento || "-"}</td>
       <td>${dados.dosagem || "-"}</td>
-      <td>${dados.estoque_atual || "0"}</td>
-      <td>${dados.paciente || "-"}</td>
+      <td>${(dados.estoque_atual || 0) + "/" + (dados.quantidade_por_dose || 1)}</td>
+      <td>${formatarNome(dados.paciente || "")}</td>
       <td>Ativo</td>
     `;
-    tbody.appendChild(tr);
-  }
+
+        tabela.appendChild(linha);
+    }
 }
 
-// Botões dos modais
-document.getElementById("btn-cancelar-sync")?.addEventListener("click", () => fecharModal("modal-sincronizando"));
-document.getElementById("btn-tentar-sync")?.addEventListener("click", () => {
-  fecharModal("modal-sincronizando");
-  document.getElementById("btn-acessar").click();
+function formatarNome(nome) {
+    if (nome.length <= 2) return nome;
+    return nome.split(" ")[0] + " " + "*****";
+}
+
+
+document.getElementById("btn-conectar")?.addEventListener("click", () => {
+    const id = prompt("Digite o ID do módulo a ser conectado (ex: MOD-001):");
+
+    if (!id || !id.trim()) return;
+
+    const modId = id.trim().toUpperCase();
+    localStorage.setItem("moduloConectadoId", modId);
+
+    document.getElementById("sync-id").textContent = modId;
+
+    abrirModal("modal-sincronizando");
+    iniciarConexaoBLE(modId);
+
 });
 
-document.getElementById("btn-cancelar-falha")?.addEventListener("click", () => fecharModal("modal-falhou"));
+function abrirModal(id) {
+    document.getElementById(id)?.classList.add("active");
+}
+
+function fecharModal(id) {
+    document.getElementById(id)?.classList.remove("active");
+}
+
+document.getElementById("btn-cancelar-sync")?.addEventListener("click", () => {
+    fecharModal("modal-sincronizando");
+});
+
+document.getElementById("btn-tentar-sync")?.addEventListener("click", () => {
+    fecharModal("modal-sincronizando");
+
+    const id = localStorage.getItem("moduloConectadoId");
+    if (!id) return;
+
+    document.getElementById("sync-id").textContent = id;
+    abrirModal("modal-sincronizando");
+
+});
+
+async function iniciarConexaoBLE(modId) {
+    try {
+        const json = await eel.ble_conectar(modId)();
+
+        if (json.erro) {
+            console.warn("Erro ao conectar:", json.erro);
+            fecharModal("modal-sincronizando");
+            abrirModal("modal-falhou");
+            return;
+        }
+
+        console.log("Conexão bem-sucedida. JSON recebido:", json);
+        localStorage.setItem("jsonRecebido", JSON.stringify(json));
+
+        fecharModal("modal-sincronizando");
+        abrirModal("modal-conectado");
+
+    } catch (err) {
+        console.error("Erro inesperado:", err);
+        fecharModal("modal-sincronizando");
+        abrirModal("modal-falhou");
+    }
+}
+
+document.getElementById("btn-cancelar-falha")?.addEventListener("click", () => {
+    fecharModal("modal-falhou");
+});
+
 document.getElementById("btn-tentar-falha")?.addEventListener("click", () => {
-  fecharModal("modal-falhou");
-  document.getElementById("btn-acessar").click();
+    fecharModal("modal-falhou");
+    const id = localStorage.getItem("moduloConectadoId");
+    if (!id) return;
+
+    document.getElementById("sync-id").textContent = id;
+    abrirModal("modal-sincronizando");
+    iniciarConexaoBLE(id);
+});
+
+document.getElementById("btn-proximo-editar")?.addEventListener("click", () => {
+    fecharModal("modal-conectado");
+    abrirModal("modal-editar"); // virá na Etapa 8
+});
+
+document.getElementById("btn-proximo-editar")?.addEventListener("click", () => {
+    fecharModal("modal-conectado");
+    abrirModal("modal-editar");
+    preencherFormularioEdicao();
+});
+
+function preencherFormularioEdicao() {
+    const json = JSON.parse(localStorage.getItem("jsonRecebido") || "{}");
+
+    document.getElementById("modulo-id-edit").textContent = json.id || "---";
+    document.getElementById("paciente").value = json.paciente || "";
+    document.getElementById("cpf").value = json.cpf || "";
+    document.getElementById("medicamento").value = json.medicamento || "";
+    document.getElementById("dosagem").value = json.dosagem || "";
+    document.getElementById("formato").value = json.formato || "";
+    document.getElementById("quantidade_por_dose").value = json.quantidade_por_dose || 1;
+    document.getElementById("estoque_atual").value = json.estoque_atual || 0;
+    document.getElementById("horarios").value = (json.horarios || []).join(", ");
+}
+
+
+document.getElementById("form-editar-modulo")?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const modId = localStorage.getItem("moduloConectadoId");
+    if (!modId) return;
+
+    const json = {
+        id: modId,
+        paciente: document.getElementById("paciente").value.trim(),
+        cpf: document.getElementById("cpf").value.trim(),
+        medicamento: document.getElementById("medicamento").value.trim(),
+        dosagem: document.getElementById("dosagem").value.trim(),
+        formato: document.getElementById("formato").value.trim(),
+        quantidade_por_dose: parseInt(document.getElementById("quantidade_por_dose").value),
+        estoque_atual: parseInt(document.getElementById("estoque_atual").value),
+        horarios: document.getElementById("horarios").value.split(",").map(h => h.trim()),
+        ultima_atualizacao: new Date().toISOString()
+    };
+
+    try {
+        const resposta = await eel.ble_enviar(modId, json)();
+
+        if (resposta.sucesso) {
+            fecharModal("modal-editar");
+            localStorage.setItem("jsonRecebido", JSON.stringify(json));
+            await carregarModulos(); // atualiza a tabela
+            alert("✅ Dados enviados com sucesso! 🔌 Para editar novamente, reconecte o módulo.");
+        } else {
+            alert("❌ Erro ao enviar dados para o módulo.");
+        }
+    } catch (error) {
+        console.error("Erro ao enviar JSON:", error);
+        alert("❌ Erro inesperado durante envio BLE.");
+    }
+});
+
+document.getElementById("btn-limpar-modulo")?.addEventListener("click", () => {
+    const json = JSON.parse(localStorage.getItem("jsonRecebido") || "{}");
+
+    document.getElementById("modulo-id-limpar").textContent = json.id || "---";
+    fecharModal("modal-editar");
+    abrirModal("modal-limpar");
+});
+
+document.getElementById("btn-cancelar-limpeza")?.addEventListener("click", () => {
+    fecharModal("modal-limpar");
+    abrirModal("modal-editar");
+});
+
+
+document.getElementById("btn-confirmar-limpeza")?.addEventListener("click", async () => {
+    const jsonAntigo = JSON.parse(localStorage.getItem("jsonRecebido") || "{}");
+    const modId = jsonAntigo.id || localStorage.getItem("moduloConectadoId");
+
+    if (!modId) {
+        alert("Módulo não encontrado.");
+        return;
+    }
+
+    const jsonVazio = {
+        id: modId,
+        paciente: "",
+        cpf: "",
+        medicamento: "",
+        dosagem: "",
+        formato: "",
+        quantidade_por_dose: 1,
+        estoque_atual: 0,
+        horarios: [],
+        ultima_atualizacao: new Date().toISOString()
+    };
+
+    try {
+        const resposta = await eel.ble_enviar(modId, jsonVazio)();
+
+        if (resposta.sucesso) {
+            fecharModal("modal-limpar");
+            localStorage.setItem("jsonRecebido", JSON.stringify(jsonVazio));
+            await carregarModulos(); // atualiza a tabela na dashboard
+            alert("✅ Módulo limpo com sucesso!");
+        } else {
+            alert("❌ Erro ao limpar módulo.");
+        }
+    } catch (err) {
+        console.error("Erro durante limpeza BLE:", err);
+        alert("❌ Erro inesperado durante envio.");
+    }
 });

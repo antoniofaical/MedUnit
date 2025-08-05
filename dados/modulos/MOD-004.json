@@ -1,0 +1,15 @@
+{
+  "id": "MOD-004",
+  "paciente": "João Silva",
+  "cpf": "999.888.777-66",
+  "medicamento": "Sinvastatina",
+  "dosagem": "20mg",
+  "formato": "Comprimido",
+  "quantidade_por_dose": 1,
+  "estoque_atual": 17,
+  "horarios": [
+    "12:00",
+    "22:00"
+  ],
+  "ultima_atualizacao": "2025-08-05T02:29"
+}

@@ -4,39 +4,68 @@
   justify-content: center;
   align-items: center;
   background-color: #f4f6f8;
+  padding: 16px;
 }
 
 .card {
   background: white;
   padding: 40px;
-  border-radius: 12px;
+  border-radius: 16px;
   max-width: 420px;
   width: 100%;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
-.logo {
-  height: 80px;
-  margin: 0 auto 16px;
-  display: block;
-}
-
-h1 {
-  text-align: center;
+.logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
   margin-bottom: 24px;
-  font-size: 31px;
+}
+
+.logo-title .logo {
+  height: 48px;
+}
+
+.logo-title h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.logo-title .med {
+  color: var(--quartiary);
+}
+
+.logo-title .unit {
+  color: var(--tertiary);
+}
+
+.subtitle {
+  margin-bottom: 16px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
 }
 
 form label {
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 500;
   margin-top: 12px;
-  display: block;
   color: var(--quartiary);
 }
 
 form input {
   margin-top: 6px;
   margin-bottom: 12px;
+}
+
+button[type="submit"] {
+  margin-top: 16px;
+  width: 100%;
 }
 
 .erro {

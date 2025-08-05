@@ -1,40 +1,51 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cadastro | MedUnit</title>
+
   <link rel="stylesheet" href="styles/global.css" />
   <link rel="stylesheet" href="styles/cadastro.css" />
 </head>
 <body>
   <main class="cadastro-container">
     <section class="card">
-      <img src="assets/logo_medunit.svg" alt="Logo MedUnit" class="logo" />
-      <h1>Cadastro da Farmácia</h1>
+      <div class="logo-title">
+        <img src="assets/logo_medunit.svg" alt="Logo MedUnit" class="logo" />
+      </div>
+
+      <p class="subtitle text-center">Bem vindo ao sistema MedUnit!</p>
+      <p class="subtitle text-center">Por favor, faça seu cadastro abaixo:</p>
+
       <form id="form-cadastro">
         <label for="cnpj">CNPJ</label>
-        <input type="text" id="cnpj" name="cnpj" placeholder="Digite o CNPJ" required />
+        <input type="text" id="cnpj" name="cnpj" placeholder="CNPJ" required />
 
-        <label for="nome">Nome da farmácia</label>
-        <input type="text" id="nome" name="nome" placeholder="Digite o nome" required />
+        <label for="nome">Nome da Farmácia</label>
+        <input type="text" id="nome" name="nome" placeholder="Nome da Farmácia" required />
 
         <label for="senha">Senha</label>
-        <input type="password" id="senha" name="senha" placeholder="Crie uma senha segura" required />
+        <input type="password" id="senha" name="senha" placeholder="Senha" required />
+
+        <label for="confirmar-senha">Confirmar Senha</label>
+        <input type="password" id="confirmar-senha" name="confirmar-senha" placeholder="Confirmar Senha" required />
 
         <label for="plano">Plano</label>
         <select id="plano" name="plano" required>
-          <option value="empresarial">Empresarial</option>
-          <option value="basico">Básico</option>
+          <option value="" disabled selected>Escolher plano</option>
+          <option value="EMPRESARIAL">Empresarial</option>
+          <option value="BASICO">Básico</option>
         </select>
 
         <button type="submit" class="btn-secondary">Cadastrar</button>
-        <p class="erro hidden" id="erro-msg">Erro ao criar cadastro. Tente novamente.</p>
+        <p class="erro hidden" id="erro-msg">Erro ao criar cadastro. Verifique os dados e tente novamente.</p>
       </form>
     </section>
   </main>
 
-    <script src="/eel.js" type="text/javascript" defer></script>
-    <script src="scripts/cadastro.js" type="text/javascript" defer></script>
+  <script src="/eel.js" defer></script>
+  <script src="scripts/cadastro.js" defer></script>
 </body>
 </html>

@@ -1,128 +1,250 @@
-
 /* ===== HEADER ===== */
 .dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--tertiary);
-  padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--tertiary);
+    padding: 16px 32px;
+    color: white;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .logo-container img {
-  height: 40px;
+    height: 40px;
+}
+
+.logo-container h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.logo-container .med {
+    color: white;
+}
+
+.logo-container .unit {
+    color: var(--tertiary);
+    opacity: 0.8;
+}
+
+.farmacia-nome {
+    text-align: right;
+    line-height: 1.2;
 }
 
 .farmacia-nome .subtitle {
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
 }
 
 #nome-farmacia {
-  color: white;
-  font-size: 14px;
+    font-size: 13px;
+    color: white;
 }
 
 #logout-btn {
-  font-size: 14px;
-  border-color: var(--primary);
-  color: var(--primary);
-  font-weight: bold;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    border: 2px solid white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    background: none;
+    cursor: pointer;
 }
 
 #logout-btn:hover {
-  background-color: white;
-  color: var(--secondary);
+    background-color: white;
+    color: var(--secondary);
 }
 
-/* ===== CONTAINER PRINCIPAL ===== */
+/* ===== CONTEÚDO PRINCIPAL ===== */
 .container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 32px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px;
 }
 
-/* ===== CABEÇALHO DO CONTEÚDO ===== */
+/* ===== CABEÇALHO DA TABELA E BOTÃO DE AÇÃO ===== */
 .linha-cabecalho {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
 }
 
 h2 {
-  font-weight: bold;
-  font-size: 25px;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--quartiary);
+    margin: 0;
 }
 
-/* ===== AÇÕES DO MÓDULO (botões) ===== */
 .acoes-modulo {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin: 20px 0;
-  gap: 12px;
+    display: flex;
+    align-items: center;
 }
 
 #btn-conectar {
-  background: none;
-  border-color: var(--secondary);
-  color: var(--secondary);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: 2px solid var(--secondary);
+    color: var(--secondary);
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
 
 #btn-conectar:hover {
-  background-color: #dee2e6;
-}
-
-#btn-acessar {
-  background: none;
-  border-color: var(--secondary);
-  color: var(--secondary);
-}
-
-#btn-acessar:hover {
-  background-color: #dee2e6;
+    background-color: #e6f1f1;
 }
 
 .icone-bluetooth {
-  margin-left: 8px;
-  height: 14px;
-}
-
-.modulo-label {
-  font-weight: bold;
-  font-size: 16px;
-  padding: 6px 12px;
-  border: 2px solid var(--secondary);
-  border-radius: 8px;
-  color: var(--secondary);
+    margin-left: 8px;
+    height: 14px;
 }
 
 /* ===== TABELA DE MÓDULOS ===== */
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 16px;
-  font-size: 14px;
-  background-color: white;
-  border: 1px solid var(--quartiary);
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border: 1px solid var(--quartiary);
+    font-size: 14px;
 }
 
 thead {
-  background-color: #f1f3f5;
+    background-color: #f1f3f5;
 }
 
-th, td {
-  padding: 12px 16px;
-  text-align: left;
-  border: 1px solid var(--quartiary);
+th,
+td {
+    padding: 12px 16px;
+    text-align: left;
+    border: 1px solid var(--quartiary);
 }
 
 th {
-  font-weight: 600;
-  color: var(--quartiary);
+    font-weight: 600;
+    color: var(--quartiary);
 }
 
 tr:hover {
-  background-color: #f9f9f9;
+    background-color: #f9f9f9;
+}
+
+.modal-card {
+    background-color: white;
+    padding: 32px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 500px;
+    max-height: 600px;
+    height: 100%;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-top {
+    text-align: center;
+}
+
+.modal-top .logo {
+    height: 80px;
+    margin-bottom: 8px;
+}
+
+.modal-top h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.modal-top .med {
+    color: var(--quartiary);
+}
+
+.modal-top .unit {
+    color: var(--tertiary);
+}
+
+.modal-middle {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0;
+}
+
+.modal-middle .modal-cubo {
+    height: 200px;
+    margin-bottom: 25px;
+}
+
+.modal-middle h3 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.modal-middle .subtitle {
+    font-size: 14px;
+    color: var(--quartiary);
+}
+
+.modal-bottom {
+    text-align: center;
+}
+
+
+.botoes-sync {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.botoes-sync button {
+    min-width: 140px;
+}
+
+.modal-card.grande {
+    max-width: 680px;
+    height: auto;
+    overflow-y: auto;
+}
+
+.modal-card h2 {
+    margin-top: 0;
+    text-align: left;
+}
+
+.grupo-campos {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.grupo-campos>div {
+    flex: 1;
+}
+
+.modal-card form input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 4px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
 }

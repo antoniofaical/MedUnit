@@ -1,115 +1,105 @@
-
 import eel
-import os
-from backend.auth import verificar_login, criar_config, carregar_config
-from backend.modulos import (
-    listar_modulos,
-    carregar_modulo_validado,
-    salvar_modulo_validado,
-    limpar_modulo,
-    atualizar_estoque,
-    modulo_existe,
+import asyncio
+from backend.utils import (
+    carregar_config,
+    salvar_config,
+    carregar_modulo,
+    salvar_modulo,
+    verificar_senha,
 )
-from backend.conexao import (
-    listar_dispositivos_BT,
-    conectar_modulo,
-    ler_json_do_modulo,
-    enviar_json_para_modulo,
-)
+from backend.bluetooth import conectar_modulo_async, enviar_json_para_modulo_async
 
-# Pasta do frontend
-eel.init("web")  
+eel.init("web")
 
 
-#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~# AUTENTICAÇÃO #~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
-
-@eel.expose
-def login(cnpj, senha):
-    return verificar_login(cnpj, senha)
+# ===== AUTENTICAÇÃO =====
 
 
 @eel.expose
-def carregar_configuracoes():
-    return carregar_config()
-
-
-@eel.expose
-def cadastrar_farmacia(cnpj, nome, senha, plano):
-    criar_config(cnpj, nome, senha, plano) 
-
-#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~# MÓDULOS #~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
-
-@eel.expose
-def get_lista_modulos():
-    return listar_modulos()
-
-
-@eel.expose
-def carregar_modulo(mod_id):
+def login(cnpj: str, senha: str):
     try:
-        return carregar_modulo_validado(mod_id)
+        config = carregar_config()
+        if cnpj != config["cnpj"]:
+            return {"erro": "CNPJ não encontrado."}
+        if not verificar_senha(senha, config["senha_hash"]):
+            return {"erro": "Senha incorreta."}
+        return {"sucesso": True, "nome": config["nome_farmacia"]}
     except Exception as e:
         return {"erro": str(e)}
 
 
 @eel.expose
-def salvar_modulo(mod_id, dados_dict):
+def gerar_hash(senha: str):
+    from backend.utils import gerar_hash
+
+    return gerar_hash(senha)
+
+
+@eel.expose
+def salvar_config(config: dict):
+    from backend.utils import salvar_config
+
+    salvar_config(config)
+
+
+@eel.expose
+def verificar_config():
     try:
-        salvar_modulo_validado(mod_id, dados_dict)
-        return {"status": "OK"}
+        carregar_config()
+        return True
+    except:
+        return False
+
+
+# ===== DADOS DOS MÓDULOS =====
+
+
+@eel.expose
+def listar_modulos():
+    try:
+        config = carregar_config()
+        return config.get("modulos", [])
     except Exception as e:
         return {"erro": str(e)}
 
 
 @eel.expose
-def limpar_dados_modulo(mod_id):
+def carregar_modulo_backend(mod_id: str):
     try:
-        limpar_modulo(mod_id)
-        return {"status": "OK"}
+        return carregar_modulo(mod_id)
     except Exception as e:
         return {"erro": str(e)}
 
 
 @eel.expose
-def atualizar_estoque_modulo(mod_id):
+def salvar_modulo_backend(mod_id: str, dados: dict):
     try:
-        atualizar_estoque(mod_id)
-        return {"status": "OK"}
+        salvar_modulo(mod_id, dados)
+        return {"sucesso": True}
+    except Exception as e:
+        return {"erro": str(e)}
+
+
+# ===== CONEXÃO BLE =====
+
+
+@eel.expose
+def ble_conectar(mod_id: str):
+    try:
+        return asyncio.run(conectar_modulo_async(mod_id))
     except Exception as e:
         return {"erro": str(e)}
 
 
 @eel.expose
-def modulo_existe_check(mod_id):
-    return modulo_existe(mod_id)
+def ble_enviar(mod_id: str, json_data: dict):
+    try:
+        sucesso = asyncio.run(enviar_json_para_modulo_async(mod_id, json_data))
+        return {"sucesso": sucesso}
+    except Exception as e:
+        return {"erro": str(e)}
 
 
-#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~# CONEXÃO COM MÓDULO FÍSICO #~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
+# ===== INÍCIO DA APLICAÇÃO =====
 
-@eel.expose
-def scan_dispositivos():
-    return eel.loop.run_until_complete(listar_dispositivos_BT())
-
-
-@eel.expose
-def conectar_automaticamente():
-    return eel.loop.run_until_complete(conectar_automaticamente())
-
-@eel.expose
-def conectar_a_modulo(mac):
-    return eel.loop.run_until_complete(conectar_modulo(mac))
-
-@eel.expose
-def obter_json_modulo(mac):
-    return eel.loop.run_until_complete(ler_json_do_modulo(mac))
-
-
-@eel.expose
-def enviar_json_modulo(mac, dados_dict):
-    return eel.loop.run_until_complete(enviar_json_para_modulo(mac, dados_dict))
-
-
-#~#~#~#~#~#~#~#~#~#~#~#~#~#~#~# INICIAR APP #~#~#~#~#~#~#~#~#~#~#~#~#~#~#~#
-
-if __name__ == "__main__":
-    eel.start("index.html")
+eel.start("index.html", size=(1280, 720))

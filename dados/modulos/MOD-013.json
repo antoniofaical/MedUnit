@@ -1,0 +1,14 @@
+{
+  "id": "MOD-013",
+  "paciente": "Beatriz Mendes",
+  "cpf": "555.222.111-00",
+  "medicamento": "Levotiroxina",
+  "dosagem": "100mcg",
+  "formato": "Comprimido",
+  "quantidade_por_dose": 1,
+  "estoque_atual": 20,
+  "horarios": [
+    "06:30"
+  ],
+  "ultima_atualizacao": "2025-08-05T02:29"
+}

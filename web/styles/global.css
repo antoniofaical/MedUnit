@@ -1,5 +1,19 @@
+/* ===============================
+   🎨 VARIÁVEIS GLOBAIS
+   =============================== */
+:root {
+  --primary: #ffffff;
+  --secondary: #008080;
+  --tertiary: #4DB6AC;
+  --quartiary: #212121;
+  --quinquenary: #757575;
+  --danger: red;
+  --danger-bg: #ffe5e5;
+}
 
-/* ========== RESET ========== */
+/* ===============================
+   🔄 RESET BÁSICO
+   =============================== */
 * {
   margin: 0;
   padding: 0;
@@ -7,56 +21,34 @@
 }
 
 html, body {
-  font-family: 'Inter', sans-serif;
-  background-color: #f4f6f8;
-  color: #212121;
   height: 100%;
   width: 100%;
+  font-family: 'Inter', sans-serif;
+  background-color: #f4f6f8;
+  color: var(--quartiary);
+  scroll-behavior: smooth;
 }
 
-/* ========== TYPOGRAPHY ========== */
-h1 {
-  font-size: 39px;
-  font-weight: normal;
-}
+/* ===============================
+   ✍️ TIPOGRAFIA
+   =============================== */
+h1 { font-size: 39px; font-weight: normal; }
+h2 { font-size: 31px; font-weight: normal; }
+h3 { font-size: 25px; font-weight: normal; }
 
-h2 {
-  font-size: 31px;
-  font-weight: normal;
-}
+.body { font-size: 20px; }
+.subtitle { font-size: 16px; }
 
-h3 {
-  font-size: 25px;
-  font-weight: normal;
-}
-
-.body {
-  font-size: 20px;
-  font-weight: normal;
-}
-
-.subtitle {
-  font-size: 16px;
-  font-weight: normal;
-}
-
-/* ========== COLORS ========== */
-:root {
-  --primary: #ffffff;
-  --secondary: #008080;
-  --tertiary: #4DB6AC;
-  --quartiary: #212121;
-  --quinquenary: #757575;
-}
-
-/* ========== BUTTONS ========== */
+/* ===============================
+   🧩 BOTÕES
+   =============================== */
 button {
   font-family: inherit;
   font-size: 16px;
   padding: 10px 18px;
   border-radius: 8px;
-  cursor: pointer;
   border: 2px solid transparent;
+  cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
@@ -64,7 +56,6 @@ button {
   background-color: var(--secondary);
   color: white;
 }
-
 .btn-secondary:hover {
   background-color: #006666;
 }
@@ -73,7 +64,6 @@ button {
   background-color: var(--tertiary);
   color: white;
 }
-
 .btn-tertiary:hover {
   background-color: #3CAAA0;
 }
@@ -83,22 +73,22 @@ button {
   color: var(--quartiary);
   border: 2px solid var(--quartiary);
 }
-
 .btn-outline:hover {
-  background-color: #ffe5e5;
+  background-color: var(--danger-bg);
 }
 
 .btn-danger {
   background-color: white;
-  color: red;
-  border: 2px solid red;
+  color: var(--danger);
+  border: 2px solid var(--danger);
 }
-
 .btn-danger:hover {
-  background-color: #ffe5e5;
+  background-color: var(--danger-bg);
 }
 
-/* ========== INPUTS ========== */
+/* ===============================
+   📝 INPUTS / FORMULÁRIOS
+   =============================== */
 input, select, textarea {
   font-family: inherit;
   font-size: 16px;
@@ -107,44 +97,42 @@ input, select, textarea {
   padding: 10px;
   width: 100%;
 }
-
 input:focus, select:focus, textarea:focus {
   border-color: var(--secondary);
   outline: none;
 }
 
-/* ========== TABLE ========== */
+/* ===============================
+   📊 TABELAS
+   =============================== */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 24px;
   font-size: 14px;
   background-color: white;
-  border: 1px solid var(--quartiary); /* borda externa da tabela */
+  border: 1px solid var(--quartiary);
   table-layout: fixed;
 }
-
 thead {
   background-color: white;
 }
-
 th, td {
   padding: 12px 16px;
   text-align: center;
-  border: 1px solid var(--quartiary); /* bordas internas */
+  border: 1px solid var(--quartiary);
 }
-
 th {
   font-weight: 600;
-  color: #212121;
+  color: var(--quartiary);
 }
-
 tr:hover {
   background-color: #f9f9f9;
 }
 
-
-/* ========== MODAL ========== */
+/* ===============================
+   🪟 MODAIS
+   =============================== */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -154,11 +142,9 @@ tr:hover {
   justify-content: center;
   z-index: 99;
 }
-
 .modal-overlay.active {
   display: flex;
 }
-
 .modal-content {
   background-color: white;
   border-radius: 8px;
@@ -167,31 +153,40 @@ tr:hover {
   width: 100%;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
-
 .modal-content h2 {
   margin-bottom: 16px;
 }
 
-/* ========== UTILITY CLASSES ========== */
+/* ===============================
+   🧰 UTILITÁRIOS
+   =============================== */
 .flex {
   display: flex;
 }
-
 .center {
   align-items: center;
   justify-content: center;
 }
-
 .hidden {
   display: none !important;
 }
-
 .text-center {
   text-align: center;
 }
-
 .container {
   max-width: 1280px;
   margin: 0 auto;
   padding: 32px 24px;
+}
+
+/* ===============================
+   📱 RESPONSIVIDADE BÁSICA
+   =============================== */
+@media (max-width: 600px) {
+  .container {
+    padding: 16px;
+  }
+  table {
+    font-size: 12px;
+  }
 }

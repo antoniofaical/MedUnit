@@ -1,22 +1,18 @@
-body {
-    background-color: #f4f6f8;
-}
-
 .splash-container {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  background-color: #f4f6f8;
 }
 
-.splash-container img {
-    height: 96px;
+.logo {
+  height: 96px;
 }
 
 .loading-text {
-    margin-top: 20px;
-    color: var(--secondary);
+  color: var(--secondary);
 }

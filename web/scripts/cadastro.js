@@ -1,31 +1,40 @@
-document.getElementById("form-cadastro").addEventListener("submit", async (e) => {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("form-cadastro");
+  const erroMsg = document.getElementById("erro-msg");
 
-  const cnpj = document.getElementById("cnpj").value;
-  const nome = document.getElementById("nome").value;
-  const senha = document.getElementById("senha").value;
-  const plano = document.getElementById("plano").value;
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    erroMsg.classList.add("hidden");
 
-  try {
-    await eel.cadastrar_farmacia(cnpj, nome, senha, plano)();
-    window.location.href = "login.html";
-  } catch (err) {
-    console.error("Erro ao cadastrar:", err);
-    document.getElementById("erro-msg").classList.remove("hidden");
-  }
-});
+    const nome = document.getElementById("nome").value.trim();
+    const cnpj = document.getElementById("cnpj").value.trim();
+    const senha = document.getElementById("senha").value;
+    const confirmarSenha = document.getElementById("confirmar-senha").value;
+    const plano = document.getElementById("plano").value;
 
-// === MÁSCARA DE CNPJ ===
-function aplicarMascaraCNPJ(valor) {
-  return valor
-    .replace(/\D/g, "") // remove tudo que não for número
-    .replace(/^(\d{2})(\d)/, "$1.$2")
-    .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
-    .replace(/\.(\d{3})(\d)/, ".$1/$2")
-    .replace(/(\d{4})(\d)/, "$1-$2")
-    .slice(0, 18);
-}
+    if (senha !== confirmarSenha) {
+      erroMsg.textContent = "As senhas não coincidem.";
+      erroMsg.classList.remove("hidden");
+      return;
+    }
 
-document.getElementById("cnpj").addEventListener("input", (e) => {
-  e.target.value = aplicarMascaraCNPJ(e.target.value);
+    try {
+      const hash = await eel.gerar_hash(senha)();
+
+      const config = {
+        nome_farmacia: nome,
+        cnpj: cnpj,
+        senha_hash: hash,
+        plano: plano.toUpperCase(),
+        modulos: []
+      };
+
+      await eel.salvar_config(config)();
+      window.location.href = "login.html";
+    } catch (err) {
+      console.error("Erro ao cadastrar:", err);
+      erroMsg.textContent = "Erro ao salvar dados. Tente novamente.";
+      erroMsg.classList.remove("hidden");
+    }
+  });
 });

@@ -1,0 +1,14 @@
+{
+  "id": "MOD-008",
+  "paciente": "Rafael Torres",
+  "cpf": "000.111.222-33",
+  "medicamento": "Levotiroxina",
+  "dosagem": "100mcg",
+  "formato": "Comprimido",
+  "quantidade_por_dose": 2,
+  "estoque_atual": 19,
+  "horarios": [
+    "06:30"
+  ],
+  "ultima_atualizacao": "2025-08-05T02:29"
+}

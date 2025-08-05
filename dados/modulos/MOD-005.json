@@ -1,0 +1,14 @@
+{
+  "id": "MOD-005",
+  "paciente": "Mariana Rocha",
+  "cpf": "111.222.333-44",
+  "medicamento": "Omeprazol",
+  "dosagem": "40mg",
+  "formato": "Comprimido",
+  "quantidade_por_dose": 2,
+  "estoque_atual": 16,
+  "horarios": [
+    "09:00"
+  ],
+  "ultima_atualizacao": "2025-08-05T02:29"
+}
