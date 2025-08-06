@@ -1,0 +1,2 @@
+# start.py
+import main
