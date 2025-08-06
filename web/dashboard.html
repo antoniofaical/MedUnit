@@ -14,7 +14,7 @@
     <!-- HEADER -->
     <header class="dashboard-header">
         <div class="logo-container">
-            <img src="assets/logo_medunit.svg" alt="Logo MedUnit" />
+            <img src="assets/logo_medunit_alt.svg" alt="Logo MedUnit" />
         </div>
         <div class="farmacia-nome">
             <p class="subtitle">Painel da farmácia</p>
@@ -105,7 +105,7 @@
                 <img src="assets/logo_medunit.svg" alt="Logo MedUnit" class="logo" />
             </div>
             <div class="modal-middle">
-                <img src="assets/cubo_ok.svg" alt="Conectado" class="modal-cubo" />
+                <img src="assets/cubo_connect.svg" alt="Conectado" class="modal-cubo" />
                 <h3>Conexão estabelecida.</h3>
             </div>
             <div class="modal-bottom">
@@ -119,8 +119,10 @@
     <!-- MODAL: Editar Módulo -->
     <div id="modal-editar" class="modal-overlay">
         <div class="modal-card grande">
-            <h2>Editar Módulo</h2>
-            <p class="subtitle">MOD-<span id="modulo-id-edit">---</span></p>
+            <div class="wrapper-edit-title">
+                <h2>Editar Módulo</h2>
+                <p class="subtitle"><span id="modulo-id-edit">---</span></p>
+            </div>
 
             <form id="form-editar-modulo">
                 <div class="grupo-campos">
@@ -166,7 +168,7 @@
                 <div class="botoes-sync">
                     <button type="button" class="btn-outline" id="btn-limpar-modulo">Limpar Módulo</button>
                     <button type="button" class="btn-outline" id="btn-cancelar-edicao">Cancelar</button>
-                    <button type="submit" class="btn-primary">Salvar Alterações</button>
+                    <button type="submit" class="btn-secondary" id="btn-salvar">Salvar Alterações</button>
                 </div>
             </form>
         </div>
@@ -180,7 +182,6 @@
                 <img src="assets/logo_medunit.svg" alt="Logo MedUnit" class="logo" />
             </div>
             <div class="modal-middle">
-                <img src="assets/cubo_wipe.svg" alt="Apagar módulo" class="modal-cubo" />
                 <h3>Deseja apagar todos os dados do módulo <span id="modulo-id-limpar">---</span>?</h3>
             </div>
             <div class="modal-bottom">

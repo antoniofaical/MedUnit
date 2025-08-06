@@ -144,40 +144,62 @@ function preencherFormularioEdicao() {
 
 
 document.getElementById("form-editar-modulo")?.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const modId = localStorage.getItem("moduloConectadoId");
-    if (!modId) return;
+  const modId = localStorage.getItem("moduloConectadoId");
+  if (!modId) return;
 
-    const json = {
-        id: modId,
-        paciente: document.getElementById("paciente").value.trim(),
-        cpf: document.getElementById("cpf").value.trim(),
-        medicamento: document.getElementById("medicamento").value.trim(),
-        dosagem: document.getElementById("dosagem").value.trim(),
-        formato: document.getElementById("formato").value.trim(),
-        quantidade_por_dose: parseInt(document.getElementById("quantidade_por_dose").value),
-        estoque_atual: parseInt(document.getElementById("estoque_atual").value),
-        horarios: document.getElementById("horarios").value.split(",").map(h => h.trim()),
-        ultima_atualizacao: new Date().toISOString()
-    };
+  // 🔄 Preparar botões e animação
+  const btnSalvar = document.getElementById("btn-salvar");
+  const botoes = document.querySelectorAll("#form-editar-modulo button");
+  const textoOriginal = btnSalvar.textContent;
 
-    try {
-        const resposta = await eel.ble_enviar(modId, json)();
+  botoes.forEach(btn => btn.disabled = true); // desativa todos os botões
 
-        if (resposta.sucesso) {
-            fecharModal("modal-editar");
-            localStorage.setItem("jsonRecebido", JSON.stringify(json));
-            await carregarModulos(); // atualiza a tabela
-            alert("✅ Dados enviados com sucesso! 🔌 Para editar novamente, reconecte o módulo.");
-        } else {
-            alert("❌ Erro ao enviar dados para o módulo.");
-        }
-    } catch (error) {
-        console.error("Erro ao enviar JSON:", error);
-        alert("❌ Erro inesperado durante envio BLE.");
+  let pontos = 1;
+  const animacao = setInterval(() => {
+    btnSalvar.textContent = "Salvando alterações" + ".".repeat(pontos);
+    pontos = (pontos % 3) + 1;
+  }, 500);
+
+  const json = {
+    id: modId,
+    paciente: document.getElementById("paciente").value.trim(),
+    cpf: document.getElementById("cpf").value.trim(),
+    medicamento: document.getElementById("medicamento").value.trim(),
+    dosagem: document.getElementById("dosagem").value.trim(),
+    formato: document.getElementById("formato").value.trim(),
+    quantidade_por_dose: parseInt(document.getElementById("quantidade_por_dose").value),
+    estoque_atual: parseInt(document.getElementById("estoque_atual").value),
+    horarios: document.getElementById("horarios").value.split(",").map(h => h.trim()),
+    ultima_atualizacao: new Date().toISOString()
+  };
+
+  try {
+    const resposta = await eel.ble_enviar(modId, json)();
+
+    clearInterval(animacao);
+    btnSalvar.textContent = textoOriginal;
+    botoes.forEach(btn => btn.disabled = false);
+
+    if (resposta.sucesso) {
+      fecharModal("modal-editar");
+      localStorage.setItem("jsonRecebido", JSON.stringify(json));
+      await carregarModulos();
+      alert("✅ Dados enviados com sucesso! 🔌 Para editar novamente, reconecte o módulo.");
+    } else {
+      alert("❌ Erro ao enviar dados para o módulo.");
     }
+  } catch (error) {
+    clearInterval(animacao);
+    btnSalvar.textContent = textoOriginal;
+    botoes.forEach(btn => btn.disabled = false);
+
+    console.error("Erro ao enviar JSON:", error);
+    alert("❌ Erro inesperado durante envio BLE.");
+  }
 });
+
 
 document.getElementById("btn-limpar-modulo")?.addEventListener("click", () => {
     const json = JSON.parse(localStorage.getItem("jsonRecebido") || "{}");
@@ -190,6 +212,10 @@ document.getElementById("btn-limpar-modulo")?.addEventListener("click", () => {
 document.getElementById("btn-cancelar-limpeza")?.addEventListener("click", () => {
     fecharModal("modal-limpar");
     abrirModal("modal-editar");
+});
+
+document.getElementById("btn-cancelar-edicao")?.addEventListener("click", () => {
+    fecharModal("modal-editar");
 });
 
 
