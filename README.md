@@ -8,7 +8,7 @@
 
 **Sistema modular de gerenciamento inteligente de medicamentos**  
 Desenvolvido pela equipe **Kairos** para o **Biochallenge 2025**
-<br><br>[ VENCEDOR DA REGIÃO SUL PRESENCIAL ]<br>
+<br><br>[ VENCEDOR DA REGIÃO SUL PRESENCIAL ]<br><br>
 ---
 
 ## Sobre o Projeto
