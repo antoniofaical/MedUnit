@@ -6,7 +6,7 @@
 
 # MedUnit
 
-**Sistema modular de dispensação inteligente de medicamentos**  
+**Sistema modular de gerenciamento inteligente de medicamentos**  
 Desenvolvido pela equipe **Kairos** para o **Biochallenge 2025**
 
 ---
