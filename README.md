@@ -4,11 +4,11 @@
   <img src="/web/assets/img/logo_biochallenge.png" alt="Logo Biochallenge" height="120"/>
 </p>
 
-# MedUnit - [ VENCEDOR DA REGIÃO SUL PRESENCIAL ]
+# MedUnit
 
 **Sistema modular de gerenciamento inteligente de medicamentos**  
 Desenvolvido pela equipe **Kairos** para o **Biochallenge 2025**
-
+[ VENCEDOR DA REGIÃO SUL PRESENCIAL ]
 ---
 
 ## Sobre o Projeto
