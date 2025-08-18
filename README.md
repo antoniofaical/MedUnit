@@ -6,14 +6,14 @@
 
 # MedUnit
 
-**Sistema modular de dispensação inteligente de medicamentos**  
+**Sistema modular de gerenciamento inteligente de medicamentos**  
 Desenvolvido pela equipe **Kairos** para o **Biochallenge 2025**
-
+<br><br>[ VENCEDOR DA REGIÃO SUL PRESENCIAL ]<br><br>
 ---
 
 ## Sobre o Projeto
 
-O **MedUnit** é uma solução integrada que visa automatizar a distribuição de medicamentos em ambientes farmacêuticos, com foco em idosos e pacientes polimedicados. O sistema consiste em:
+O **MedUnit** é uma solução integrada que visa auxiliar o gerenciamento de medicamentos no dia a dia, com foco em idosos e pacientes polimedicados. O sistema consiste em:
 
 - Módulos físicos inteligentes controlados por microcontroladores (ESP32)
 - Aplicativo desktop para gestão e sincronização dos módulos
